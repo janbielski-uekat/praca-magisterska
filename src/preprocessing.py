@@ -38,7 +38,15 @@ cleaned_data["HasPartner"] = cleaned_data["Marital_Status"].map(partner_status)
 
 # Drop redundant columns
 cleaned_data.drop(
-    columns=["ID", "Dt_Customer", "Year_Birth", "Marital_Status"], inplace=True
+    columns=[
+        "ID",
+        "Dt_Customer",
+        "Year_Birth",
+        "Marital_Status",
+        "Z_CostContact",
+        "Z_Revenue",
+    ],
+    inplace=True,
 )
 
 # Save the cleaned dataset for exploratory data analysis
