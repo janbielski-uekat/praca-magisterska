@@ -1,11 +1,15 @@
+import json
 import joblib
-from sklearn.metrics import accuracy_score, classification_report
+import pandas as pd
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.svm import SVC
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import GridSearchCV
 from sklearn.ensemble import GradientBoostingClassifier, AdaBoostClassifier
 from xgboost import XGBClassifier
+
+from reporting import generate_markdown_report
 
 # Load the data
 with open("../../data/processed/modelling_data.pkl", "rb") as file:
@@ -69,10 +73,37 @@ for name, clf in classifiers.items():
 # Update classifiers with the best estimators
 classifiers = best_classifiers
 
-# Train and evaluate classifiers
+results = []
+
 for name, clf in classifiers.items():
     clf.fit(X_train, y_train)
     y_pred = clf.predict(X_test)
+    accuracy = accuracy_score(y_test, y_pred)
+    report = classification_report(y_test, y_pred, output_dict=True)
+    conf_matrix = confusion_matrix(y_test, y_pred)
+
+    results.append(
+        {
+            "Classifier": name,
+            "Accuracy": accuracy,
+            "Precision": report["1"]["precision"],  # Precision for positive class
+            "Recall": report["1"]["recall"],  # Recall for positive class
+            "F1-Score": report["1"]["f1-score"],  # F1-Score for positive class
+            "Confusion Matrix": conf_matrix.tolist(),  # Convert numpy array to list for JSON serialization
+            "Best Hyperparameters": grid_search.best_params_,  # Add best hyperparameters to results
+        }
+    )
+
     print(f"Classifier: {name}")
-    print(f"Accuracy: {accuracy_score(y_test, y_pred)}")
+    print(f"Accuracy: {accuracy}")
     print(f"Classification Report:\n{classification_report(y_test, y_pred)}\n")
+    print(f"Confusion Matrix:\n{conf_matrix}\n")
+
+# Save results to a JSON file
+with open("../../reports/results/classification_results.json", "w") as f:
+    json.dump(results, f, indent=4)
+
+generate_markdown_report(
+    "../../reports/results/classification_results.json",
+    "../../reports/clf_reports/classification_results_report.md",
+)

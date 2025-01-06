@@ -1,0 +1,134 @@
+[
+    {
+        "Classifier": "Random Forest",
+        "Accuracy": 0.8796992481203008,
+        "Precision": 0.631578947368421,
+        "Recall": 0.48,
+        "F1-Score": 0.5454545454545454,
+        "Confusion Matrix": [
+            [
+                537,
+                28
+            ],
+            [
+                52,
+                48
+            ]
+        ],
+        "Best Hyperparameters": {
+            "learning_rate": 0.01,
+            "max_depth": 7,
+            "n_estimators": 300
+        }
+    },
+    {
+        "Classifier": "Support Vector Machine",
+        "Accuracy": 0.8736842105263158,
+        "Precision": 0.5833333333333334,
+        "Recall": 0.56,
+        "F1-Score": 0.5714285714285714,
+        "Confusion Matrix": [
+            [
+                525,
+                40
+            ],
+            [
+                44,
+                56
+            ]
+        ],
+        "Best Hyperparameters": {
+            "learning_rate": 0.01,
+            "max_depth": 7,
+            "n_estimators": 300
+        }
+    },
+    {
+        "Classifier": "Logistic Regression",
+        "Accuracy": 0.8315789473684211,
+        "Precision": 0.4642857142857143,
+        "Recall": 0.78,
+        "F1-Score": 0.582089552238806,
+        "Confusion Matrix": [
+            [
+                475,
+                90
+            ],
+            [
+                22,
+                78
+            ]
+        ],
+        "Best Hyperparameters": {
+            "learning_rate": 0.01,
+            "max_depth": 7,
+            "n_estimators": 300
+        }
+    },
+    {
+        "Classifier": "Gradient Boosting",
+        "Accuracy": 0.8616541353383459,
+        "Precision": 0.5465116279069767,
+        "Recall": 0.47,
+        "F1-Score": 0.5053763440860215,
+        "Confusion Matrix": [
+            [
+                526,
+                39
+            ],
+            [
+                53,
+                47
+            ]
+        ],
+        "Best Hyperparameters": {
+            "learning_rate": 0.01,
+            "max_depth": 7,
+            "n_estimators": 300
+        }
+    },
+    {
+        "Classifier": "AdaBoost",
+        "Accuracy": 0.8421052631578947,
+        "Precision": 0.48091603053435117,
+        "Recall": 0.63,
+        "F1-Score": 0.5454545454545454,
+        "Confusion Matrix": [
+            [
+                497,
+                68
+            ],
+            [
+                37,
+                63
+            ]
+        ],
+        "Best Hyperparameters": {
+            "learning_rate": 0.01,
+            "max_depth": 7,
+            "n_estimators": 300
+        }
+    },
+    {
+        "Classifier": "XGBoost",
+        "Accuracy": 0.8676691729323308,
+        "Precision": 0.573170731707317,
+        "Recall": 0.47,
+        "F1-Score": 0.5164835164835165,
+        "Confusion Matrix": [
+            [
+                530,
+                35
+            ],
+            [
+                53,
+                47
+            ]
+        ],
+        "Best Hyperparameters": {
+            "learning_rate": 0.01,
+            "max_depth": 7,
+            "n_estimators": 300
+        }
+    }
+]
