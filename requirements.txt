@@ -2,8 +2,9 @@ ipykernel
 python-dotenv
 pandas
 numpy
-scikit-learn
+scikit-learn<1.6
 imbalanced-learn
 matplotlib
 seaborn
 joblib
+xgboost
