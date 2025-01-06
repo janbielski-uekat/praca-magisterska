@@ -1,6 +1,5 @@
 import json
 import joblib
-import pandas as pd
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.svm import SVC
