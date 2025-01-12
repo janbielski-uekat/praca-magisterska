@@ -108,6 +108,9 @@ for name, clf in classifiers.items():
     print(f"Classification Report:\n{classification_report(y_test, y_pred)}\n")
     print(f"Confusion Matrix:\n{conf_matrix}\n")
 
+# Save all trained classifiers to a single file
+joblib.dump(classifiers, "../../models/trained_classifiers.pkl")
+
 # Save results to a JSON file
 with open("../../reports/results/classification_results.json", "w") as f:
     json.dump(results, f, indent=4)
