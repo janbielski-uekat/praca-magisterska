@@ -3,7 +3,7 @@ import joblib
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.svm import SVC
-from sklearn.linear_model import LogisticRegression
+from sklearn.linear_model import LogisticRegression, RidgeClassifier, SGDClassifier
 from sklearn.model_selection import GridSearchCV
 from sklearn.ensemble import GradientBoostingClassifier, AdaBoostClassifier
 from xgboost import XGBClassifier
@@ -25,8 +25,10 @@ classifiers = {
     "Support Vector Machine": SVC(),
     "Logistic Regression": LogisticRegression(),
     "Gradient Boosting": GradientBoostingClassifier(),
-    "AdaBoost": AdaBoostClassifier(),
+    "AdaBoost": AdaBoostClassifier(algorithm="SAMME"),
     "XGBoost": XGBClassifier(),
+    "Ridge Classifier": RidgeClassifier(),
+    "SGD Classifier": SGDClassifier(),
 }
 
 # Define hyperparameters for grid search
@@ -58,6 +60,14 @@ param_grids = {
         "n_estimators": [100, 200, 300],
         "learning_rate": [0.01, 0.1, 0.2],
         "max_depth": [3, 5, 7],
+    },
+    "Ridge Classifier": {
+        "alpha": [0.1, 1.0, 10.0],
+    },
+    "SGD Classifier": {
+        "alpha": [0.0001, 0.001, 0.01],
+        "l1_ratio": [0.15, 0.5, 0.85],
+        "penalty": ["l2", "l1", "elasticnet"],
     },
 }
 

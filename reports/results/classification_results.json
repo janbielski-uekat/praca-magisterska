@@ -1,24 +1,24 @@
 [
     {
         "Classifier": "Random Forest",
-        "Accuracy": 0.8796992481203008,
-        "Precision": 0.631578947368421,
-        "Recall": 0.48,
-        "F1-Score": 0.5454545454545454,
+        "Accuracy": 0.8827067669172932,
+        "Precision": 0.6571428571428571,
+        "Recall": 0.46,
+        "F1-Score": 0.5411764705882353,
         "Confusion Matrix": [
             [
-                537,
-                28
+                541,
+                24
             ],
             [
-                52,
-                48
+                54,
+                46
             ]
         ],
         "Best Hyperparameters": {
-            "learning_rate": 0.01,
-            "max_depth": 7,
-            "n_estimators": 300
+            "alpha": 0.001,
+            "l1_ratio": 0.15,
+            "penalty": "elasticnet"
         }
     },
     {
@@ -38,9 +38,9 @@
             ]
         ],
         "Best Hyperparameters": {
-            "learning_rate": 0.01,
-            "max_depth": 7,
-            "n_estimators": 300
+            "alpha": 0.001,
+            "l1_ratio": 0.15,
+            "penalty": "elasticnet"
         }
     },
     {
@@ -60,53 +60,53 @@
             ]
         ],
         "Best Hyperparameters": {
-            "learning_rate": 0.01,
-            "max_depth": 7,
-            "n_estimators": 300
+            "alpha": 0.001,
+            "l1_ratio": 0.15,
+            "penalty": "elasticnet"
         }
     },
     {
         "Classifier": "Gradient Boosting",
-        "Accuracy": 0.8616541353383459,
-        "Precision": 0.5465116279069767,
-        "Recall": 0.47,
-        "F1-Score": 0.5053763440860215,
+        "Accuracy": 0.8631578947368421,
+        "Precision": 0.550561797752809,
+        "Recall": 0.49,
+        "F1-Score": 0.5185185185185185,
         "Confusion Matrix": [
             [
-                526,
-                39
+                525,
+                40
             ],
             [
-                53,
-                47
+                51,
+                49
             ]
         ],
         "Best Hyperparameters": {
-            "learning_rate": 0.01,
-            "max_depth": 7,
-            "n_estimators": 300
+            "alpha": 0.001,
+            "l1_ratio": 0.15,
+            "penalty": "elasticnet"
         }
     },
     {
         "Classifier": "AdaBoost",
-        "Accuracy": 0.8421052631578947,
-        "Precision": 0.48091603053435117,
-        "Recall": 0.63,
-        "F1-Score": 0.5454545454545454,
+        "Accuracy": 0.8390977443609022,
+        "Precision": 0.4744525547445255,
+        "Recall": 0.65,
+        "F1-Score": 0.5485232067510548,
         "Confusion Matrix": [
             [
-                497,
-                68
+                493,
+                72
             ],
             [
-                37,
-                63
+                35,
+                65
             ]
         ],
         "Best Hyperparameters": {
-            "learning_rate": 0.01,
-            "max_depth": 7,
-            "n_estimators": 300
+            "alpha": 0.001,
+            "l1_ratio": 0.15,
+            "penalty": "elasticnet"
         }
     },
     {
@@ -126,9 +126,53 @@
             ]
         ],
         "Best Hyperparameters": {
-            "learning_rate": 0.01,
-            "max_depth": 7,
-            "n_estimators": 300
+            "alpha": 0.001,
+            "l1_ratio": 0.15,
+            "penalty": "elasticnet"
+        }
+    },
+    {
+        "Classifier": "Ridge Classifier",
+        "Accuracy": 0.8285714285714286,
+        "Precision": 0.4583333333333333,
+        "Recall": 0.77,
+        "F1-Score": 0.5746268656716418,
+        "Confusion Matrix": [
+            [
+                474,
+                91
+            ],
+            [
+                23,
+                77
+            ]
+        ],
+        "Best Hyperparameters": {
+            "alpha": 0.001,
+            "l1_ratio": 0.15,
+            "penalty": "elasticnet"
+        }
+    },
+    {
+        "Classifier": "SGD Classifier",
+        "Accuracy": 0.8210526315789474,
+        "Precision": 0.44919786096256686,
+        "Recall": 0.84,
+        "F1-Score": 0.5853658536585366,
+        "Confusion Matrix": [
+            [
+                462,
+                103
+            ],
+            [
+                16,
+                84
+            ]
+        ],
+        "Best Hyperparameters": {
+            "alpha": 0.001,
+            "l1_ratio": 0.15,
+            "penalty": "elasticnet"
         }
     }
 ]
