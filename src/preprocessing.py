@@ -99,6 +99,14 @@ X_train, X_test, y_train, y_test = train_test_split(
 X_train_preprocessed = preprocessor.fit_transform(X_train)
 X_test_preprocessed = preprocessor.transform(X_test)
 
+# Get feature names after preprocessing
+num_features = numerical_cols
+cat_features = preprocessor.named_transformers_["cat"]["onehot"].get_feature_names_out(
+    categorical_cols
+)
+binary_features = binary_cols
+feature_names = list(num_features) + list(cat_features) + list(binary_features)
+
 # Apply SMOTE to the preprocessed training data
 smote = SMOTE(random_state=42)
 X_train_resampled, y_train_resampled = smote.fit_resample(X_train_preprocessed, y_train)
@@ -109,6 +117,7 @@ modelling_data = {
     "y_train": y_train_resampled,
     "X_test": X_test_preprocessed,
     "y_test": y_test,
+    "feature_names": feature_names,
 }
 
 # Save the modelling data
