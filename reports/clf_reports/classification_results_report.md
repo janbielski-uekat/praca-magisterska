@@ -4,29 +4,29 @@
 
 ### Best Hyperparameters
 
-**alpha**: 0.001 | **l1_ratio**: 0.15 | **penalty**: elasticnet
+**max_depth**: 20 | **min_samples_split**: 2 | **n_estimators**: 100
 
 ### Classification Metrics
 
 | Metric     | Value   |
 |------------|---------|
-| Accuracy   | 0.8827 |
-| Precision for 1  | 0.6571 |
-| Recall for 1     | 0.4600 |
-| F1-Score for 1   | 0.5412 |
+| Accuracy   | 0.8812 |
+| Precision for 1  | 0.6721 |
+| Recall for 1     | 0.4100 |
+| F1-Score for 1   | 0.5093 |
 
 ### Confusion Matrix
 
 |   | Predicted 0 | Predicted 1 |
 |---|--------------|--------------|
-| Actual 0 | 541 | 24 |
-| Actual 1 | 54 | 46 |
+| Actual 0 | 545 | 20 |
+| Actual 1 | 59 | 41 |
 
 ## Support Vector Machine
 
 ### Best Hyperparameters
 
-**alpha**: 0.001 | **l1_ratio**: 0.15 | **penalty**: elasticnet
+**C**: 100 | **kernel**: rbf
 
 ### Classification Metrics
 
@@ -48,7 +48,7 @@
 
 ### Best Hyperparameters
 
-**alpha**: 0.001 | **l1_ratio**: 0.15 | **penalty**: elasticnet
+**C**: 10 | **penalty**: l2 | **solver**: lbfgs
 
 ### Classification Metrics
 
@@ -70,29 +70,29 @@
 
 ### Best Hyperparameters
 
-**alpha**: 0.001 | **l1_ratio**: 0.15 | **penalty**: elasticnet
+**learning_rate**: 0.01 | **max_depth**: 7 | **n_estimators**: 300
 
 ### Classification Metrics
 
 | Metric     | Value   |
 |------------|---------|
-| Accuracy   | 0.8632 |
-| Precision for 1  | 0.5506 |
+| Accuracy   | 0.8647 |
+| Precision for 1  | 0.5568 |
 | Recall for 1     | 0.4900 |
-| F1-Score for 1   | 0.5185 |
+| F1-Score for 1   | 0.5213 |
 
 ### Confusion Matrix
 
 |   | Predicted 0 | Predicted 1 |
 |---|--------------|--------------|
-| Actual 0 | 525 | 40 |
+| Actual 0 | 526 | 39 |
 | Actual 1 | 51 | 49 |
 
 ## AdaBoost
 
 ### Best Hyperparameters
 
-**alpha**: 0.001 | **l1_ratio**: 0.15 | **penalty**: elasticnet
+**learning_rate**: 1 | **n_estimators**: 100
 
 ### Classification Metrics
 
@@ -114,7 +114,7 @@
 
 ### Best Hyperparameters
 
-**alpha**: 0.001 | **l1_ratio**: 0.15 | **penalty**: elasticnet
+**learning_rate**: 0.01 | **max_depth**: 7 | **n_estimators**: 300
 
 ### Classification Metrics
 
@@ -136,7 +136,7 @@
 
 ### Best Hyperparameters
 
-**alpha**: 0.001 | **l1_ratio**: 0.15 | **penalty**: elasticnet
+**alpha**: 10.0
 
 ### Classification Metrics
 
@@ -158,21 +158,21 @@
 
 ### Best Hyperparameters
 
-**alpha**: 0.001 | **l1_ratio**: 0.15 | **penalty**: elasticnet
+**alpha**: 0.0001 | **l1_ratio**: 0.5 | **penalty**: elasticnet
 
 ### Classification Metrics
 
 | Metric     | Value   |
 |------------|---------|
-| Accuracy   | 0.8211 |
-| Precision for 1  | 0.4492 |
-| Recall for 1     | 0.8400 |
-| F1-Score for 1   | 0.5854 |
+| Accuracy   | 0.8436 |
+| Precision for 1  | 0.4857 |
+| Recall for 1     | 0.6800 |
+| F1-Score for 1   | 0.5667 |
 
 ### Confusion Matrix
 
 |   | Predicted 0 | Predicted 1 |
 |---|--------------|--------------|
-| Actual 0 | 462 | 103 |
-| Actual 1 | 16 | 84 |
+| Actual 0 | 493 | 72 |
+| Actual 1 | 32 | 68 |
 

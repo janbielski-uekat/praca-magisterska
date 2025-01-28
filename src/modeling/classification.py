@@ -71,12 +71,15 @@ param_grids = {
     },
 }
 
+best_params = {}
+
 # Perform grid search for each classifier
 best_classifiers = {}
 for name, clf in classifiers.items():
     grid_search = GridSearchCV(clf, param_grids[name], cv=5, scoring="recall")
     grid_search.fit(X_train, y_train)
     best_classifiers[name] = grid_search.best_estimator_
+    best_params[name] = grid_search.best_params_
     print(f"Best parameters for {name}: {grid_search.best_params_}")
 
 # Update classifiers with the best estimators
@@ -99,7 +102,9 @@ for name, clf in classifiers.items():
             "Recall": report["1"]["recall"],  # Recall for positive class
             "F1-Score": report["1"]["f1-score"],  # F1-Score for positive class
             "Confusion Matrix": conf_matrix.tolist(),  # Convert numpy array to list for JSON serialization
-            "Best Hyperparameters": grid_search.best_params_,  # Add best hyperparameters to results
+            "Best Hyperparameters": best_params[
+                name
+            ],  # Add best hyperparameters to results
         }
     )
 
