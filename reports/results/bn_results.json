@@ -1,0 +1,22 @@
+[
+    {
+        "Classifier": "Bayesian Network",
+        "Accuracy": 0.7639097744360902,
+        "Precision": 0.32515337423312884,
+        "Recall": 0.53,
+        "F1-Score": 0.40304182509505704,
+        "Confusion Matrix": [
+            [
+                455,
+                110
+            ],
+            [
+                47,
+                53
+            ]
+        ],
+        "Best Hyperparameters": {
+            "Exception": "Does not apply"
+        }
+    }
+]

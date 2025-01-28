@@ -2,6 +2,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import joblib
 import numpy as np
+import json
+
 from tqdm import tqdm
 
 from causalnex.structure import StructureModel
@@ -10,8 +12,12 @@ from causalnex.plots import plot_structure, NODE_STYLE, EDGE_STYLE
 from causalnex.network import BayesianNetwork
 from causalnex.inference import InferenceEngine
 from causalnex.evaluation import classification_report
+
 from IPython.lib.display import IFrame
 from sklearn.metrics import classification_report as sklearn_classification_report
+from sklearn.metrics import confusion_matrix
+
+from reporting import generate_markdown_report
 
 # Load the data
 with open("../../data/processed/modelling_data.pkl", "rb") as file:
@@ -188,6 +194,36 @@ classification_report(bn, test_data_discrete, "Response")
 
 predicted_probabilities = bn.predict_probability(test_data_discrete, "Response")
 
-y_pred = predicted_probabilities["Response_1"].apply(lambda x: 1 if x >= 0.5 else 0)
+y_pred = predicted_probabilities["Response_1"].apply(lambda x: 1 if x > 0.5 else 0)
 
 print(sklearn_classification_report(test_data_discrete["Response"], y_pred))
+
+report = sklearn_classification_report(
+    test_data_discrete["Response"], y_pred, output_dict=True
+)
+conf_matrix = confusion_matrix(test_data_discrete["Response"], y_pred)
+
+results = []
+
+results.append(
+    {
+        "Classifier": "Bayesian Network",
+        "Accuracy": report["accuracy"],
+        "Precision": report["1"]["precision"],  # Precision for positive class
+        "Recall": report["1"]["recall"],  # Recall for positive class
+        "F1-Score": report["1"]["f1-score"],  # F1-Score for positive class
+        "Confusion Matrix": conf_matrix.tolist(),  # Convert numpy array to list for JSON serialization
+        "Best Hyperparameters": {
+            "Exception": "Does not apply"
+        },  # Add best hyperparameters to results
+    }
+)
+
+# Save results to a JSON file
+with open("../../reports/results/bn_results.json", "w") as f:
+    json.dump(results, f, indent=4)
+
+generate_markdown_report(
+    "../../reports/results/bn_results.json",
+    "../../reports/clf_reports/bn_results_report.md",
+)
