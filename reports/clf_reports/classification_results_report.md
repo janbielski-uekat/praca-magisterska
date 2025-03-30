@@ -4,23 +4,23 @@
 
 ### Best Hyperparameters
 
-**max_depth**: 20 | **min_samples_split**: 2 | **n_estimators**: 100
+**max_depth**: 30 | **min_samples_split**: 2 | **n_estimators**: 100
 
 ### Classification Metrics
 
 | Metric     | Value   |
 |------------|---------|
-| Accuracy   | 0.8812 |
-| Precision for 1  | 0.6721 |
-| Recall for 1     | 0.4100 |
-| F1-Score for 1   | 0.5093 |
+| Accuracy   | 0.8842 |
+| Precision for 1  | 0.6825 |
+| Recall for 1     | 0.4300 |
+| F1-Score for 1   | 0.5276 |
 
 ### Confusion Matrix
 
 |   | Predicted 0 | Predicted 1 |
 |---|--------------|--------------|
 | Actual 0 | 545 | 20 |
-| Actual 1 | 59 | 41 |
+| Actual 1 | 57 | 43 |
 
 ## Support Vector Machine
 
@@ -76,17 +76,17 @@
 
 | Metric     | Value   |
 |------------|---------|
-| Accuracy   | 0.8647 |
-| Precision for 1  | 0.5568 |
-| Recall for 1     | 0.4900 |
-| F1-Score for 1   | 0.5213 |
+| Accuracy   | 0.8632 |
+| Precision for 1  | 0.5517 |
+| Recall for 1     | 0.4800 |
+| F1-Score for 1   | 0.5134 |
 
 ### Confusion Matrix
 
 |   | Predicted 0 | Predicted 1 |
 |---|--------------|--------------|
 | Actual 0 | 526 | 39 |
-| Actual 1 | 51 | 49 |
+| Actual 1 | 52 | 48 |
 
 ## AdaBoost
 
@@ -158,21 +158,21 @@
 
 ### Best Hyperparameters
 
-**alpha**: 0.0001 | **l1_ratio**: 0.5 | **penalty**: elasticnet
+**alpha**: 0.001 | **l1_ratio**: 0.5 | **loss**: hinge | **penalty**: l2
 
 ### Classification Metrics
 
 | Metric     | Value   |
 |------------|---------|
-| Accuracy   | 0.8436 |
-| Precision for 1  | 0.4857 |
-| Recall for 1     | 0.6800 |
-| F1-Score for 1   | 0.5667 |
+| Accuracy   | 0.8150 |
+| Precision for 1  | 0.4378 |
+| Recall for 1     | 0.8100 |
+| F1-Score for 1   | 0.5684 |
 
 ### Confusion Matrix
 
 |   | Predicted 0 | Predicted 1 |
 |---|--------------|--------------|
-| Actual 0 | 493 | 72 |
-| Actual 1 | 32 | 68 |
+| Actual 0 | 461 | 104 |
+| Actual 1 | 19 | 81 |
 

@@ -68,6 +68,7 @@ param_grids = {
         "alpha": [0.0001, 0.001, 0.01],
         "l1_ratio": [0.15, 0.5, 0.85],
         "penalty": ["l2", "l1", "elasticnet"],
+        "loss": ["hinge", "log", "squared_hinge"],
     },
 }
 
