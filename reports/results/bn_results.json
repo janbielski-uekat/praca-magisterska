@@ -1,18 +1,18 @@
 [
     {
         "Classifier": "Bayesian Network",
-        "Accuracy": 0.7639097744360902,
-        "Precision": 0.32515337423312884,
-        "Recall": 0.53,
-        "F1-Score": 0.40304182509505704,
+        "Accuracy": 0.7834586466165413,
+        "Precision": 0.34285714285714286,
+        "Recall": 0.48,
+        "F1-Score": 0.4,
         "Confusion Matrix": [
             [
-                455,
-                110
+                473,
+                92
             ],
             [
-                47,
-                53
+                52,
+                48
             ]
         ],
         "Best Hyperparameters": {

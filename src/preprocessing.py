@@ -1,10 +1,11 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler, OneHotEncoder
+from sklearn.preprocessing import StandardScaler, OneHotEncoder, RobustScaler
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 from sklearn.impute import SimpleImputer
 from imblearn.over_sampling import SMOTE
+from imblearn.combine import SMOTETomek
 import joblib
 
 # Load the dataset
@@ -67,7 +68,7 @@ categorical_cols = [col for col in categorical_cols if col not in binary_cols]
 
 # Define preprocessing pipelines for numerical, categorical and binary data
 numerical_transformer = Pipeline(
-    steps=[("imputer", SimpleImputer(strategy="median")), ("scaler", StandardScaler())]
+    steps=[("imputer", SimpleImputer(strategy="median")), ("scaler", RobustScaler())]
 )
 
 categorical_transformer = Pipeline(
@@ -108,7 +109,7 @@ binary_features = binary_cols
 feature_names = list(num_features) + list(cat_features) + list(binary_features)
 
 # Apply SMOTE to the preprocessed training data
-smote = SMOTE(random_state=42)
+smote = SMOTETomek(random_state=42)
 X_train_resampled, y_train_resampled = smote.fit_resample(X_train_preprocessed, y_train)
 
 # Create a dictionary to hold the modelling data
@@ -120,5 +121,14 @@ modelling_data = {
     "feature_names": feature_names,
 }
 
+bn_modelling_data = {
+    "X_train": X_train_preprocessed,
+    "y_train": y_train,
+    "X_test": X_test_preprocessed,
+    "y_test": y_test,
+    "feature_names": feature_names,
+}
+
 # Save the modelling data
 joblib.dump(modelling_data, "../data/processed/modelling_data.pkl")
+joblib.dump(bn_modelling_data, "../data/processed/bn_modelling_data.pkl")

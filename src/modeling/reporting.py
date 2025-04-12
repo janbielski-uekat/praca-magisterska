@@ -35,6 +35,7 @@ def generate_markdown_report(json_file_path, markdown_file_path):
         markdown_content += f"| Precision for 1  | {result['Precision']:.4f} |\n"
         markdown_content += f"| Recall for 1     | {result['Recall']:.4f} |\n"
         markdown_content += f"| F1-Score for 1   | {result['F1-Score']:.4f} |\n"
+        markdown_content += f"| Profit           | {result['Profit']:.4f} |\n"
         markdown_content += "\n"
 
         markdown_content += "### Confusion Matrix\n\n"

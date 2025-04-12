@@ -1,5 +1,6 @@
 import json
 import joblib
+import seaborn as sns
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.svm import SVC
@@ -7,6 +8,12 @@ from sklearn.linear_model import LogisticRegression, RidgeClassifier, SGDClassif
 from sklearn.model_selection import GridSearchCV
 from sklearn.ensemble import GradientBoostingClassifier, AdaBoostClassifier
 from xgboost import XGBClassifier
+from sklearn.metrics import roc_curve, auc
+from sklearn.preprocessing import label_binarize
+import matplotlib.pyplot as plt
+import numpy as np
+from sklearn.metrics import RocCurveDisplay
+from sklearn.metrics import roc_auc_score
 
 from reporting import generate_markdown_report
 
@@ -49,17 +56,17 @@ param_grids = {
     },
     "Gradient Boosting": {
         "n_estimators": [100, 200, 300],
-        "learning_rate": [0.01, 0.1, 0.2],
-        "max_depth": [3, 5, 7],
+        "learning_rate": [0.01, 0.1, 1],
+        "max_depth": [None, 10, 20, 30],
     },
     "AdaBoost": {
-        "n_estimators": [50, 100, 200],
+        "n_estimators": [100, 200, 300],
         "learning_rate": [0.01, 0.1, 1],
     },
     "XGBoost": {
         "n_estimators": [100, 200, 300],
-        "learning_rate": [0.01, 0.1, 0.2],
-        "max_depth": [3, 5, 7],
+        "learning_rate": [0.01, 0.1, 1],
+        "max_depth": [None, 10, 20, 30],
     },
     "Ridge Classifier": {
         "alpha": [0.1, 1.0, 10.0],
@@ -88,12 +95,26 @@ classifiers = best_classifiers
 
 results = []
 
+conversion_return = 10.93  # Example: profit per successful conversion
+contact_cost = 3
+
 for name, clf in classifiers.items():
     clf.fit(X_train, y_train)
     y_pred = clf.predict(X_test)
     accuracy = accuracy_score(y_test, y_pred)
     report = classification_report(y_test, y_pred, output_dict=True)
     conf_matrix = confusion_matrix(y_test, y_pred)
+
+    # Calculate profit
+    true_positives = conf_matrix[1][
+        1
+    ]  # True Positives (bottom-right of confusion matrix)
+    total_predicted_positives = sum(
+        conf_matrix[:, 1]
+    )  # Total Predicted Positives (second column)
+    profit = (true_positives * conversion_return) - (
+        total_predicted_positives * contact_cost
+    )
 
     results.append(
         {
@@ -102,6 +123,7 @@ for name, clf in classifiers.items():
             "Precision": report["1"]["precision"],  # Precision for positive class
             "Recall": report["1"]["recall"],  # Recall for positive class
             "F1-Score": report["1"]["f1-score"],  # F1-Score for positive class
+            "Profit": profit,
             "Confusion Matrix": conf_matrix.tolist(),  # Convert numpy array to list for JSON serialization
             "Best Hyperparameters": best_params[
                 name
@@ -112,10 +134,31 @@ for name, clf in classifiers.items():
     print(f"Classifier: {name}")
     print(f"Accuracy: {accuracy}")
     print(f"Classification Report:\n{classification_report(y_test, y_pred)}\n")
-    print(f"Confusion Matrix:\n{conf_matrix}\n")
+
+    # Create a figure with two subplots side by side
+    sns.set_context("notebook", font_scale=1.5)
+    fig, axes = plt.subplots(1, 2, figsize=(16, 8))
+
+    # Plot confusion matrix on the left
+    cm = confusion_matrix(y_test, y_pred)
+    sns.heatmap(cm, annot=True, fmt="d", cmap="Blues", cbar=False, ax=axes[0])
+    axes[0].set_xlabel("Predicted", fontsize=16)
+    axes[0].set_ylabel("True", fontsize=16)
+    axes[0].set_title(f"Confusion Matrix for {name}", fontsize=18)
+
+    # Plot ROC curve on the right
+    RocCurveDisplay.from_estimator(clf, X_test, y_test, ax=axes[1])
+    axes[1].set_title(f"ROC Curve for {name}", fontsize=18)
+
+    # Save the combined figure
+    plt.tight_layout()
+    plt.savefig(f"../../reports/figures/confusion_matrix_roc_curve_{name}.png")
+    plt.close()
+
 
 # Save all trained classifiers to a single file
 joblib.dump(classifiers, "../../models/trained_classifiers.pkl")
+
 
 # Save results to a JSON file
 with open("../../reports/results/classification_results.json", "w") as f:

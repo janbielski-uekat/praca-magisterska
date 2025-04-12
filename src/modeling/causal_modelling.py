@@ -33,8 +33,8 @@ feature_names = [
 ]
 
 # Combine X_train and y_train
-X_train_df = pd.DataFrame(X_train)
-y_train_df = pd.DataFrame(y_train)
+X_train_df = pd.DataFrame(X_train).reset_index(drop=True)
+y_train_df = pd.DataFrame(y_train).reset_index(drop=True)
 train_data = pd.concat([X_train_df, y_train_df], axis=1)
 train_data.columns = feature_names + ["Response"]
 
@@ -227,3 +227,74 @@ generate_markdown_report(
     "../../reports/results/bn_results.json",
     "../../reports/clf_reports/bn_results_report.md",
 )
+
+import numpy as np
+import pandas as pd
+
+
+def montecarlo_effects_on_response_final(
+    bn, ie, data, target="Response", n_samples=1000
+):
+    def expected_value(dist):
+        try:
+            return sum(prob * int(val) for val, prob in dist.items())
+        except ValueError:
+            return dist.get("1", dist.get("yes", 0.0))
+
+    sampled_data = data.sample(n=n_samples, replace=True, random_state=42).copy()
+    baseline_preds = []
+
+    for _, row in sampled_data.iterrows():
+        evidence = row.drop(target).to_dict()
+        try:
+            dist = ie.query(evidence=evidence)[target]
+            baseline_preds.append(expected_value(dist))
+        except Exception:
+            continue
+
+    baseline_preds = np.array(baseline_preds)
+    if len(baseline_preds) == 0:
+        print("❌ No valid baseline predictions could be made.")
+        return pd.Series()
+
+    baseline_mean = np.nanmean(baseline_preds)
+    effects = {}
+
+    for feature in data.columns:
+        if feature == target:
+            continue
+
+        feature_effects = []
+        values = data[feature].dropna().unique()
+
+        for val in values:
+            new_preds = []
+
+            for _, row in sampled_data.iterrows():
+                modified = row.drop(target).copy()
+                modified[feature] = val
+                evidence = modified.to_dict()
+
+                try:
+                    dist = ie.query(evidence=evidence)[target]
+                    new_preds.append(expected_value(dist))
+                except Exception:
+                    continue
+
+            new_preds = np.array(new_preds)
+            if len(new_preds) == 0:
+                continue
+            new_mean = np.nanmean(new_preds)
+            effect = abs(new_mean - baseline_mean)
+            feature_effects.append(effect)
+
+        if feature_effects:
+            effects[feature] = np.mean(feature_effects)
+
+    return pd.Series(effects).sort_values(ascending=False)
+
+
+effects = montecarlo_effects_on_response_final(
+    bn, ie, train_data_discrete, target="Response"
+)
+print(effects)

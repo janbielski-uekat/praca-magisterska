@@ -10,15 +10,15 @@
 
 | Metric     | Value   |
 |------------|---------|
-| Accuracy   | 0.7639 |
-| Precision for 1  | 0.3252 |
-| Recall for 1     | 0.5300 |
-| F1-Score for 1   | 0.4030 |
+| Accuracy   | 0.7835 |
+| Precision for 1  | 0.3429 |
+| Recall for 1     | 0.4800 |
+| F1-Score for 1   | 0.4000 |
 
 ### Confusion Matrix
 
 |   | Predicted 0 | Predicted 1 |
 |---|--------------|--------------|
-| Actual 0 | 455 | 110 |
-| Actual 1 | 47 | 53 |
+| Actual 0 | 473 | 92 |
+| Actual 1 | 52 | 48 |
 

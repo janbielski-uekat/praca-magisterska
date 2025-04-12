@@ -4,23 +4,24 @@
 
 ### Best Hyperparameters
 
-**max_depth**: 30 | **min_samples_split**: 2 | **n_estimators**: 100
+**max_depth**: 30 | **min_samples_split**: 2 | **n_estimators**: 300
 
 ### Classification Metrics
 
 | Metric     | Value   |
 |------------|---------|
-| Accuracy   | 0.8842 |
-| Precision for 1  | 0.6825 |
-| Recall for 1     | 0.4300 |
-| F1-Score for 1   | 0.5276 |
+| Accuracy   | 0.8887 |
+| Precision for 1  | 0.6970 |
+| Recall for 1     | 0.4600 |
+| F1-Score for 1   | 0.5542 |
+| Profit           | 304.7800 |
 
 ### Confusion Matrix
 
 |   | Predicted 0 | Predicted 1 |
 |---|--------------|--------------|
 | Actual 0 | 545 | 20 |
-| Actual 1 | 57 | 43 |
+| Actual 1 | 54 | 46 |
 
 ## Support Vector Machine
 
@@ -32,61 +33,64 @@
 
 | Metric     | Value   |
 |------------|---------|
-| Accuracy   | 0.8737 |
-| Precision for 1  | 0.5833 |
-| Recall for 1     | 0.5600 |
-| F1-Score for 1   | 0.5714 |
+| Accuracy   | 0.8662 |
+| Precision for 1  | 0.5579 |
+| Recall for 1     | 0.5300 |
+| F1-Score for 1   | 0.5436 |
+| Profit           | 294.2900 |
 
 ### Confusion Matrix
 
 |   | Predicted 0 | Predicted 1 |
 |---|--------------|--------------|
-| Actual 0 | 525 | 40 |
-| Actual 1 | 44 | 56 |
+| Actual 0 | 523 | 42 |
+| Actual 1 | 47 | 53 |
 
 ## Logistic Regression
 
 ### Best Hyperparameters
 
-**C**: 10 | **penalty**: l2 | **solver**: lbfgs
+**C**: 1 | **penalty**: l2 | **solver**: lbfgs
 
 ### Classification Metrics
 
 | Metric     | Value   |
 |------------|---------|
-| Accuracy   | 0.8316 |
-| Precision for 1  | 0.4643 |
-| Recall for 1     | 0.7800 |
-| F1-Score for 1   | 0.5821 |
+| Accuracy   | 0.8331 |
+| Precision for 1  | 0.4675 |
+| Recall for 1     | 0.7900 |
+| F1-Score for 1   | 0.5874 |
+| Profit           | 356.4700 |
 
 ### Confusion Matrix
 
 |   | Predicted 0 | Predicted 1 |
 |---|--------------|--------------|
 | Actual 0 | 475 | 90 |
-| Actual 1 | 22 | 78 |
+| Actual 1 | 21 | 79 |
 
 ## Gradient Boosting
 
 ### Best Hyperparameters
 
-**learning_rate**: 0.01 | **max_depth**: 7 | **n_estimators**: 300
+**learning_rate**: 1 | **max_depth**: 10 | **n_estimators**: 200
 
 ### Classification Metrics
 
 | Metric     | Value   |
 |------------|---------|
-| Accuracy   | 0.8632 |
-| Precision for 1  | 0.5517 |
-| Recall for 1     | 0.4800 |
-| F1-Score for 1   | 0.5134 |
+| Accuracy   | 0.8737 |
+| Precision for 1  | 0.5930 |
+| Recall for 1     | 0.5100 |
+| F1-Score for 1   | 0.5484 |
+| Profit           | 299.4300 |
 
 ### Confusion Matrix
 
 |   | Predicted 0 | Predicted 1 |
 |---|--------------|--------------|
-| Actual 0 | 526 | 39 |
-| Actual 1 | 52 | 48 |
+| Actual 0 | 530 | 35 |
+| Actual 1 | 49 | 51 |
 
 ## AdaBoost
 
@@ -98,39 +102,41 @@
 
 | Metric     | Value   |
 |------------|---------|
-| Accuracy   | 0.8391 |
-| Precision for 1  | 0.4745 |
+| Accuracy   | 0.8556 |
+| Precision for 1  | 0.5159 |
 | Recall for 1     | 0.6500 |
-| F1-Score for 1   | 0.5485 |
+| F1-Score for 1   | 0.5752 |
+| Profit           | 332.4500 |
 
 ### Confusion Matrix
 
 |   | Predicted 0 | Predicted 1 |
 |---|--------------|--------------|
-| Actual 0 | 493 | 72 |
+| Actual 0 | 504 | 61 |
 | Actual 1 | 35 | 65 |
 
 ## XGBoost
 
 ### Best Hyperparameters
 
-**learning_rate**: 0.01 | **max_depth**: 7 | **n_estimators**: 300
+**learning_rate**: 0.1 | **max_depth**: 20 | **n_estimators**: 100
 
 ### Classification Metrics
 
 | Metric     | Value   |
 |------------|---------|
-| Accuracy   | 0.8677 |
-| Precision for 1  | 0.5732 |
-| Recall for 1     | 0.4700 |
-| F1-Score for 1   | 0.5165 |
+| Accuracy   | 0.8872 |
+| Precision for 1  | 0.6582 |
+| Recall for 1     | 0.5200 |
+| F1-Score for 1   | 0.5810 |
+| Profit           | 331.3600 |
 
 ### Confusion Matrix
 
 |   | Predicted 0 | Predicted 1 |
 |---|--------------|--------------|
-| Actual 0 | 530 | 35 |
-| Actual 1 | 53 | 47 |
+| Actual 0 | 538 | 27 |
+| Actual 1 | 48 | 52 |
 
 ## Ridge Classifier
 
@@ -146,6 +152,7 @@
 | Precision for 1  | 0.4583 |
 | Recall for 1     | 0.7700 |
 | F1-Score for 1   | 0.5746 |
+| Profit           | 337.6100 |
 
 ### Confusion Matrix
 
@@ -158,21 +165,22 @@
 
 ### Best Hyperparameters
 
-**alpha**: 0.001 | **l1_ratio**: 0.5 | **loss**: hinge | **penalty**: l2
+**alpha**: 0.001 | **l1_ratio**: 0.85 | **loss**: hinge | **penalty**: elasticnet
 
 ### Classification Metrics
 
 | Metric     | Value   |
 |------------|---------|
-| Accuracy   | 0.8150 |
-| Precision for 1  | 0.4378 |
-| Recall for 1     | 0.8100 |
-| F1-Score for 1   | 0.5684 |
+| Accuracy   | 0.8075 |
+| Precision for 1  | 0.4293 |
+| Recall for 1     | 0.8500 |
+| F1-Score for 1   | 0.5705 |
+| Profit           | 335.0500 |
 
 ### Confusion Matrix
 
 |   | Predicted 0 | Predicted 1 |
 |---|--------------|--------------|
-| Actual 0 | 461 | 104 |
-| Actual 1 | 19 | 81 |
+| Actual 0 | 452 | 113 |
+| Actual 1 | 15 | 85 |
 
