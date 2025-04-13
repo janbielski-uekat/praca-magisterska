@@ -14,8 +14,14 @@ import matplotlib.pyplot as plt
 import numpy as np
 from sklearn.metrics import RocCurveDisplay
 from sklearn.metrics import roc_auc_score
+import random
 
 from reporting import generate_markdown_report
+
+# Set a global random seed for reproducibility
+RANDOM_SEED = 123
+np.random.seed(RANDOM_SEED)
+random.seed(RANDOM_SEED)
 
 # Load the data
 with open("../../data/processed/modelling_data.pkl", "rb") as file:
@@ -26,16 +32,16 @@ X_test = data["X_test"]
 y_train = data["y_train"]
 y_test = data["y_test"]
 
-# Initialize classifiers
+# Initialize classifiers with random_state where applicable
 classifiers = {
-    "Random Forest": RandomForestClassifier(),
-    "Support Vector Machine": SVC(),
-    "Logistic Regression": LogisticRegression(),
-    "Gradient Boosting": GradientBoostingClassifier(),
-    "AdaBoost": AdaBoostClassifier(algorithm="SAMME"),
-    "XGBoost": XGBClassifier(),
+    "Random Forest": RandomForestClassifier(random_state=RANDOM_SEED),
+    "Support Vector Machine": SVC(probability=True, random_state=RANDOM_SEED),
+    "Logistic Regression": LogisticRegression(random_state=RANDOM_SEED),
+    "Gradient Boosting": GradientBoostingClassifier(random_state=RANDOM_SEED),
+    "AdaBoost": AdaBoostClassifier(random_state=RANDOM_SEED, algorithm="SAMME"),
+    "XGBoost": XGBClassifier(random_state=RANDOM_SEED),
     "Ridge Classifier": RidgeClassifier(),
-    "SGD Classifier": SGDClassifier(),
+    "SGD Classifier": SGDClassifier(random_state=RANDOM_SEED),
 }
 
 # Define hyperparameters for grid search
@@ -84,7 +90,9 @@ best_params = {}
 # Perform grid search for each classifier
 best_classifiers = {}
 for name, clf in classifiers.items():
-    grid_search = GridSearchCV(clf, param_grids[name], cv=5, scoring="recall")
+    grid_search = GridSearchCV(
+        clf, param_grids[name], cv=5, scoring="recall", n_jobs=-1
+    )
     grid_search.fit(X_train, y_train)
     best_classifiers[name] = grid_search.best_estimator_
     best_params[name] = grid_search.best_params_

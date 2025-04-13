@@ -4,24 +4,24 @@
 
 ### Best Hyperparameters
 
-**max_depth**: 30 | **min_samples_split**: 2 | **n_estimators**: 300
+**max_depth**: 20 | **min_samples_split**: 2 | **n_estimators**: 300
 
 ### Classification Metrics
 
 | Metric     | Value   |
 |------------|---------|
 | Accuracy   | 0.8887 |
-| Precision for 1  | 0.6970 |
-| Recall for 1     | 0.4600 |
-| F1-Score for 1   | 0.5542 |
-| Profit           | 304.7800 |
+| Precision for 1  | 0.6857 |
+| Recall for 1     | 0.4800 |
+| F1-Score for 1   | 0.5647 |
+| Profit           | 314.6400 |
 
 ### Confusion Matrix
 
 |   | Predicted 0 | Predicted 1 |
 |---|--------------|--------------|
-| Actual 0 | 545 | 20 |
-| Actual 1 | 54 | 46 |
+| Actual 0 | 543 | 22 |
+| Actual 1 | 52 | 48 |
 
 ## Support Vector Machine
 
@@ -73,24 +73,24 @@
 
 ### Best Hyperparameters
 
-**learning_rate**: 1 | **max_depth**: 10 | **n_estimators**: 200
+**learning_rate**: 0.1 | **max_depth**: 10 | **n_estimators**: 300
 
 ### Classification Metrics
 
 | Metric     | Value   |
 |------------|---------|
-| Accuracy   | 0.8737 |
-| Precision for 1  | 0.5930 |
-| Recall for 1     | 0.5100 |
-| F1-Score for 1   | 0.5484 |
-| Profit           | 299.4300 |
+| Accuracy   | 0.8707 |
+| Precision for 1  | 0.5946 |
+| Recall for 1     | 0.4400 |
+| F1-Score for 1   | 0.5057 |
+| Profit           | 258.9200 |
 
 ### Confusion Matrix
 
 |   | Predicted 0 | Predicted 1 |
 |---|--------------|--------------|
-| Actual 0 | 530 | 35 |
-| Actual 1 | 49 | 51 |
+| Actual 0 | 535 | 30 |
+| Actual 1 | 56 | 44 |
 
 ## AdaBoost
 
@@ -165,22 +165,22 @@
 
 ### Best Hyperparameters
 
-**alpha**: 0.001 | **l1_ratio**: 0.85 | **loss**: hinge | **penalty**: elasticnet
+**alpha**: 0.0001 | **l1_ratio**: 0.15 | **loss**: hinge | **penalty**: elasticnet
 
 ### Classification Metrics
 
 | Metric     | Value   |
 |------------|---------|
-| Accuracy   | 0.8075 |
-| Precision for 1  | 0.4293 |
-| Recall for 1     | 0.8500 |
-| F1-Score for 1   | 0.5705 |
-| Profit           | 335.0500 |
+| Accuracy   | 0.8030 |
+| Precision for 1  | 0.4213 |
+| Recall for 1     | 0.8300 |
+| F1-Score for 1   | 0.5589 |
+| Profit           | 316.1900 |
 
 ### Confusion Matrix
 
 |   | Predicted 0 | Predicted 1 |
 |---|--------------|--------------|
-| Actual 0 | 452 | 113 |
-| Actual 1 | 15 | 85 |
+| Actual 0 | 451 | 114 |
+| Actual 1 | 17 | 83 |
 

@@ -2,22 +2,22 @@
     {
         "Classifier": "Random Forest",
         "Accuracy": 0.8887218045112782,
-        "Precision": 0.696969696969697,
-        "Recall": 0.46,
-        "F1-Score": 0.5542168674698795,
-        "Profit": 304.78,
+        "Precision": 0.6857142857142857,
+        "Recall": 0.48,
+        "F1-Score": 0.5647058823529412,
+        "Profit": 314.64,
         "Confusion Matrix": [
             [
-                545,
-                20
+                543,
+                22
             ],
             [
-                54,
-                46
+                52,
+                48
             ]
         ],
         "Best Hyperparameters": {
-            "max_depth": 30,
+            "max_depth": 20,
             "min_samples_split": 2,
             "n_estimators": 300
         }
@@ -69,25 +69,25 @@
     },
     {
         "Classifier": "Gradient Boosting",
-        "Accuracy": 0.8736842105263158,
-        "Precision": 0.5930232558139535,
-        "Recall": 0.51,
-        "F1-Score": 0.5483870967741935,
-        "Profit": 299.42999999999995,
+        "Accuracy": 0.8706766917293233,
+        "Precision": 0.5945945945945946,
+        "Recall": 0.44,
+        "F1-Score": 0.5057471264367817,
+        "Profit": 258.91999999999996,
         "Confusion Matrix": [
             [
-                530,
-                35
+                535,
+                30
             ],
             [
-                49,
-                51
+                56,
+                44
             ]
         ],
         "Best Hyperparameters": {
-            "learning_rate": 1,
+            "learning_rate": 0.1,
             "max_depth": 10,
-            "n_estimators": 200
+            "n_estimators": 300
         }
     },
     {
@@ -158,24 +158,24 @@
     },
     {
         "Classifier": "SGD Classifier",
-        "Accuracy": 0.8075187969924812,
-        "Precision": 0.4292929292929293,
-        "Recall": 0.85,
-        "F1-Score": 0.5704697986577181,
-        "Profit": 335.04999999999995,
+        "Accuracy": 0.8030075187969925,
+        "Precision": 0.4213197969543147,
+        "Recall": 0.83,
+        "F1-Score": 0.5589225589225589,
+        "Profit": 316.18999999999994,
         "Confusion Matrix": [
             [
-                452,
-                113
+                451,
+                114
             ],
             [
-                15,
-                85
+                17,
+                83
             ]
         ],
         "Best Hyperparameters": {
-            "alpha": 0.001,
-            "l1_ratio": 0.85,
+            "alpha": 0.0001,
+            "l1_ratio": 0.15,
             "loss": "hinge",
             "penalty": "elasticnet"
         }
