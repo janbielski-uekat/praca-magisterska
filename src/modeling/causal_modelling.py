@@ -228,9 +228,6 @@ generate_markdown_report(
     "../../reports/clf_reports/bn_results_report.md",
 )
 
-import numpy as np
-import pandas as pd
-
 
 def montecarlo_effects_on_response_final(
     bn, ie, data, target="Response", n_samples=1000
