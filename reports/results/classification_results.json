@@ -5,6 +5,7 @@
         "Precision": 0.6857142857142857,
         "Recall": 0.48,
         "F1-Score": 0.5647058823529412,
+        "ROAS": 2.498285714285714,
         "Profit": 314.64,
         "Confusion Matrix": [
             [
@@ -28,6 +29,7 @@
         "Precision": 0.5578947368421052,
         "Recall": 0.53,
         "F1-Score": 0.5435897435897435,
+        "ROAS": 2.03259649122807,
         "Profit": 294.28999999999996,
         "Confusion Matrix": [
             [
@@ -50,6 +52,7 @@
         "Precision": 0.46745562130177515,
         "Recall": 0.79,
         "F1-Score": 0.587360594795539,
+        "ROAS": 1.7030966469428008,
         "Profit": 356.47,
         "Confusion Matrix": [
             [
@@ -73,6 +76,7 @@
         "Precision": 0.5945945945945946,
         "Recall": 0.44,
         "F1-Score": 0.5057471264367817,
+        "ROAS": 2.166306306306306,
         "Profit": 258.91999999999996,
         "Confusion Matrix": [
             [
@@ -96,6 +100,7 @@
         "Precision": 0.5158730158730159,
         "Recall": 0.65,
         "F1-Score": 0.5752212389380531,
+        "ROAS": 1.8794973544973543,
         "Profit": 332.44999999999993,
         "Confusion Matrix": [
             [
@@ -118,6 +123,7 @@
         "Precision": 0.6582278481012658,
         "Recall": 0.52,
         "F1-Score": 0.5810055865921788,
+        "ROAS": 2.398143459915612,
         "Profit": 331.36,
         "Confusion Matrix": [
             [
@@ -133,51 +139,6 @@
             "learning_rate": 0.1,
             "max_depth": 20,
             "n_estimators": 100
-        }
-    },
-    {
-        "Classifier": "Ridge Classifier",
-        "Accuracy": 0.8285714285714286,
-        "Precision": 0.4583333333333333,
-        "Recall": 0.77,
-        "F1-Score": 0.5746268656716418,
-        "Profit": 337.61,
-        "Confusion Matrix": [
-            [
-                474,
-                91
-            ],
-            [
-                23,
-                77
-            ]
-        ],
-        "Best Hyperparameters": {
-            "alpha": 10.0
-        }
-    },
-    {
-        "Classifier": "SGD Classifier",
-        "Accuracy": 0.8030075187969925,
-        "Precision": 0.4213197969543147,
-        "Recall": 0.83,
-        "F1-Score": 0.5589225589225589,
-        "Profit": 316.18999999999994,
-        "Confusion Matrix": [
-            [
-                451,
-                114
-            ],
-            [
-                17,
-                83
-            ]
-        ],
-        "Best Hyperparameters": {
-            "alpha": 0.0001,
-            "l1_ratio": 0.15,
-            "loss": "hinge",
-            "penalty": "elasticnet"
         }
     }
 ]

@@ -16,6 +16,7 @@ from sklearn.metrics import (
     classification_report,
 )
 from sklearn.metrics import RocCurveDisplay
+
 # --- STEP 1: Load modeling data ---
 # Load the data
 with open("../../data/processed/bn_modelling_data.pkl", "rb") as file:
@@ -121,7 +122,6 @@ for feature in feature_names:
 # 2. Campaign acceptance variables can't influence anything except target variable
 for feature in campaign_variables:
     if feature != target_variable:  # Exclude self-loops
-        tabu_edges.append((feature, target_variable))
         for other_feature in feature_names:
             if other_feature != target_variable and other_feature != feature:
                 tabu_edges.append((feature, other_feature))
@@ -180,7 +180,6 @@ plt.tight_layout()
 plt.show()
 
 
-
 model = PGM_BayesianNetwork(edges)
 model.fit(train_data_discrete, estimator=BayesianEstimator, prior_type="BDeu")
 infer = VariableElimination(model)
@@ -211,7 +210,7 @@ def evaluate_pgmpy_model(model, infer, X_test, y_test, target="Response"):
 
     metrics = {
         # "ROC AUC": roc_auc_score(y_true, y_scores),
-        "Accuracy (0.5 threshold)": accuracy_score(y_true, y_pred_class),
+        "Accuracy (0.25 threshold)": accuracy_score(y_true, y_pred_class),
         "Brier Score": brier_score_loss(y_true, y_scores),
         "Valid predictions": len(y_scores),
         "Total test samples": len(y_test),
@@ -219,7 +218,7 @@ def evaluate_pgmpy_model(model, infer, X_test, y_test, target="Response"):
         "Classification Report": cls_report,  # as list so it's JSON/print safe
     }
 
-        # Create a figure with two subplots side by side
+    # Create a figure with two subplots side by side
     sns.set_context("notebook", font_scale=1)
     fig, axes = plt.subplots(1, 2, figsize=(16, 8))
 
@@ -231,7 +230,7 @@ def evaluate_pgmpy_model(model, infer, X_test, y_test, target="Response"):
     axes[0].set_title("Confusion Matrix for Bayesian Network", fontsize=18)
 
     # Plot ROC curve on the right
-    RocCurveDisplay.from_predictions(y_true, y_pred_class, ax=axes[1])
+    RocCurveDisplay.from_predictions(y_true, y_scores, ax=axes[1])
     axes[1].set_title("ROC Curve for Bayesian Network", fontsize=18)
 
     # Save the combined figure
@@ -242,118 +241,14 @@ def evaluate_pgmpy_model(model, infer, X_test, y_test, target="Response"):
     return metrics
 
 
-# --- STEP 6: Run evaluation and print results ---
-def interventional_feature_effects_pgmpy(model, infer, data, target="Response"):
-    effects = {}
-    baseline_dist = infer.query(variables=[target])
-    baseline_ev = compute_expected_value(baseline_dist.values)
-
-    for feature in data.columns:
-        if feature == target:
-            continue
-
-        values = sorted(data[feature].dropna().unique())
-        evs = []
-
-        for val in values:
-            try:
-                dist = infer.query(variables=[target], evidence={feature: val})
-                ev = compute_expected_value(dist.values)
-                diff = abs(ev - baseline_ev)
-                evs.append(diff)
-            except Exception as e:
-                print(f"⚠️ Skipping {feature}={val} due to inference error: {e}")
-
-        if evs:
-            effects[feature] = np.mean(evs)
-
-    return pd.Series(effects).sort_values(ascending=False)
-
-
-def compute_expected_value(dist):
-    return sum(val * prob for val, prob in enumerate(dist))
-
-
-effects = interventional_feature_effects_pgmpy(
-    model, infer, test_data_discrete, target="Response"
-)
-print(effects)
-
-effects.plot(
-    kind="barh",
-    figsize=(10, 7),
-    title="Total Effect on Response (Marginal Interventions)",
-)
-plt.xlabel("Avg. Shift in Expected Response")
-plt.gca().invert_yaxis()
-plt.tight_layout()
-plt.show()
-
-
-def estimate_causal_effect_pgmpy(
-    model,
-    data_discrete,
-    feature: str,
-    target: str = "Response",
-    plot: bool = True,
-):
-    """
-    Estimate the total causal effect of a feature on a binary target
-    using pgmpy's VariableElimination inference engine.
-
-    Parameters:
-        model: A fitted pgmpy BayesianNetwork model.
-        data_discrete: pd.DataFrame, discretized dataset used for training/inference.
-        feature: str, the name of the variable to intervene on.
-        target: str, the binary outcome variable.
-        plot: bool, whether to display a bar plot of the results.
-
-    Returns:
-        pd.DataFrame with P(target=1) for each value of the feature.
-    """
-
-    infer = VariableElimination(model)
-    values = sorted(data_discrete[feature].dropna().unique())
-    results = {}
-
-    for val in values:
-        try:
-            q = infer.query(
-                variables=[target], evidence={feature: val}, show_progress=False
-            )
-            p_target_1 = q.values[1] if len(q.values) > 1 else 0.0
-            results[val] = p_target_1
-        except Exception as e:
-            print(f"⚠️ Could not compute for {feature}={val}: {e}")
-            results[val] = np.nan
-
-    df = pd.DataFrame.from_dict(results, orient="index", columns=[f"P({target}=1)"])
-    df.index.name = feature
-    df = df.sort_index()
-
-    if plot:
-        df.plot(kind="bar", legend=False)
-        plt.title(f"Total Effect of {feature} on P({target}=1)")
-        plt.xlabel(f"{feature} (discretized levels)")
-        plt.ylabel(f"P({target}=1)")
-        plt.axhline(
-            train_data_discrete["Response"].mean(),
-            color="red",
-            linestyle="--",
-            label="Marginal P(Response=1)",
-        )
-        plt.tight_layout()
-        plt.grid(True)
-        plt.show()
-
-    return df
-
-
-#df_effect = estimate_causal_effect_pgmpy(model, train_data_discrete, feature="Recency")
+# df_effect = estimate_causal_effect_pgmpy(model, train_data_discrete, feature="Recency")
 
 # ==========================================================================================
 
-def estimate_causal_effect_interventional(model, data_discrete, feature, target="Response", plot=True):
+
+def estimate_causal_effect_interventional(
+    model, data_discrete, feature, target="Response", plot=True
+):
     """
     Estimates the total causal effect P(target=1 | do(feature=val)) using a Monte Carlo-style simulation.
     """
@@ -370,10 +265,16 @@ def estimate_causal_effect_interventional(model, data_discrete, feature, target=
             evidence[feature] = val
 
             # Keep only valid features in model
-            evidence = {k: int(v) for k, v in evidence.items() if k in model.nodes() and k != target}
+            evidence = {
+                k: int(v)
+                for k, v in evidence.items()
+                if k in model.nodes() and k != target
+            }
 
             try:
-                q = infer.query(variables=[target], evidence=evidence, show_progress=False)
+                q = infer.query(
+                    variables=[target], evidence=evidence, show_progress=False
+                )
                 prob_1 = q.values[1] if len(q.values) > 1 else 0.0
                 probs.append(prob_1)
             except:
@@ -403,13 +304,18 @@ def estimate_causal_effect_interventional(model, data_discrete, feature, target=
 
     return df
 
+
 sns.set_context("notebook", font_scale=1)
 estimate_causal_effect_interventional(model, train_data_discrete, feature="Recency")
 estimate_causal_effect_interventional(model, train_data_discrete, feature="Teenhome")
 estimate_causal_effect_interventional(model, train_data_discrete, feature="MntWines")
-estimate_causal_effect_interventional(model, train_data_discrete, feature="CustomerTenure")
+estimate_causal_effect_interventional(
+    model, train_data_discrete, feature="CustomerTenure"
+)
 
-estimate_causal_effect_interventional(model, train_data_discrete, target="Recency", feature="NumWebVisitsMonth")
+estimate_causal_effect_interventional(
+    model, train_data_discrete, target="Recency", feature="NumWebVisitsMonth"
+)
 
 metrics = evaluate_pgmpy_model(
     model,

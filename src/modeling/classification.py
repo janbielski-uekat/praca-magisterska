@@ -16,7 +16,7 @@ from sklearn.metrics import RocCurveDisplay
 from sklearn.metrics import roc_auc_score
 import random
 
-from reporting import generate_markdown_report
+from reporting import generate_markdown_report, generate_classifier_ranking_plots
 
 # Set a global random seed for reproducibility
 RANDOM_SEED = 123
@@ -40,8 +40,6 @@ classifiers = {
     "Gradient Boosting": GradientBoostingClassifier(random_state=RANDOM_SEED),
     "AdaBoost": AdaBoostClassifier(random_state=RANDOM_SEED, algorithm="SAMME"),
     "XGBoost": XGBClassifier(random_state=RANDOM_SEED),
-    "Ridge Classifier": RidgeClassifier(),
-    "SGD Classifier": SGDClassifier(random_state=RANDOM_SEED),
 }
 
 # Define hyperparameters for grid search
@@ -58,7 +56,7 @@ param_grids = {
     "Logistic Regression": {
         "C": [0.1, 1, 10, 100],
         "penalty": ["l2"],
-        "solver": ["lbfgs", "liblinear"],
+        "solver": ["lbfgs"],
     },
     "Gradient Boosting": {
         "n_estimators": [100, 200, 300],
@@ -73,15 +71,6 @@ param_grids = {
         "n_estimators": [100, 200, 300],
         "learning_rate": [0.01, 0.1, 1],
         "max_depth": [None, 10, 20, 30],
-    },
-    "Ridge Classifier": {
-        "alpha": [0.1, 1.0, 10.0],
-    },
-    "SGD Classifier": {
-        "alpha": [0.0001, 0.001, 0.01],
-        "l1_ratio": [0.15, 0.5, 0.85],
-        "penalty": ["l2", "l1", "elasticnet"],
-        "loss": ["hinge", "log", "squared_hinge"],
     },
 }
 
@@ -120,6 +109,9 @@ for name, clf in classifiers.items():
     total_predicted_positives = sum(
         conf_matrix[:, 1]
     )  # Total Predicted Positives (second column)
+    roas = (true_positives * conversion_return) / (
+        total_predicted_positives * contact_cost
+    )
     profit = (true_positives * conversion_return) - (
         total_predicted_positives * contact_cost
     )
@@ -131,6 +123,7 @@ for name, clf in classifiers.items():
             "Precision": report["1"]["precision"],  # Precision for positive class
             "Recall": report["1"]["recall"],  # Recall for positive class
             "F1-Score": report["1"]["f1-score"],  # F1-Score for positive class
+            "ROAS": roas,
             "Profit": profit,
             "Confusion Matrix": conf_matrix.tolist(),  # Convert numpy array to list for JSON serialization
             "Best Hyperparameters": best_params[
@@ -175,4 +168,9 @@ with open("../../reports/results/classification_results.json", "w") as f:
 generate_markdown_report(
     "../../reports/results/classification_results.json",
     "../../reports/clf_reports/classification_results_report.md",
+)
+
+generate_classifier_ranking_plots(
+    "../../reports/results/classification_results.json",
+    "../../reports/figures/ranking_plots",
 )

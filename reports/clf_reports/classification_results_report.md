@@ -14,7 +14,8 @@
 | Precision for 1  | 0.6857 |
 | Recall for 1     | 0.4800 |
 | F1-Score for 1   | 0.5647 |
-| Profit           | 314.6400 |
+| ROAS           | 2.4983 |
+| Profit        | 314.6400 |
 
 ### Confusion Matrix
 
@@ -37,7 +38,8 @@
 | Precision for 1  | 0.5579 |
 | Recall for 1     | 0.5300 |
 | F1-Score for 1   | 0.5436 |
-| Profit           | 294.2900 |
+| ROAS           | 2.0326 |
+| Profit        | 294.2900 |
 
 ### Confusion Matrix
 
@@ -60,7 +62,8 @@
 | Precision for 1  | 0.4675 |
 | Recall for 1     | 0.7900 |
 | F1-Score for 1   | 0.5874 |
-| Profit           | 356.4700 |
+| ROAS           | 1.7031 |
+| Profit        | 356.4700 |
 
 ### Confusion Matrix
 
@@ -83,7 +86,8 @@
 | Precision for 1  | 0.5946 |
 | Recall for 1     | 0.4400 |
 | F1-Score for 1   | 0.5057 |
-| Profit           | 258.9200 |
+| ROAS           | 2.1663 |
+| Profit        | 258.9200 |
 
 ### Confusion Matrix
 
@@ -106,7 +110,8 @@
 | Precision for 1  | 0.5159 |
 | Recall for 1     | 0.6500 |
 | F1-Score for 1   | 0.5752 |
-| Profit           | 332.4500 |
+| ROAS           | 1.8795 |
+| Profit        | 332.4500 |
 
 ### Confusion Matrix
 
@@ -129,7 +134,8 @@
 | Precision for 1  | 0.6582 |
 | Recall for 1     | 0.5200 |
 | F1-Score for 1   | 0.5810 |
-| Profit           | 331.3600 |
+| ROAS           | 2.3981 |
+| Profit        | 331.3600 |
 
 ### Confusion Matrix
 
@@ -137,50 +143,4 @@
 |---|--------------|--------------|
 | Actual 0 | 538 | 27 |
 | Actual 1 | 48 | 52 |
-
-## Ridge Classifier
-
-### Best Hyperparameters
-
-**alpha**: 10.0
-
-### Classification Metrics
-
-| Metric     | Value   |
-|------------|---------|
-| Accuracy   | 0.8286 |
-| Precision for 1  | 0.4583 |
-| Recall for 1     | 0.7700 |
-| F1-Score for 1   | 0.5746 |
-| Profit           | 337.6100 |
-
-### Confusion Matrix
-
-|   | Predicted 0 | Predicted 1 |
-|---|--------------|--------------|
-| Actual 0 | 474 | 91 |
-| Actual 1 | 23 | 77 |
-
-## SGD Classifier
-
-### Best Hyperparameters
-
-**alpha**: 0.0001 | **l1_ratio**: 0.15 | **loss**: hinge | **penalty**: elasticnet
-
-### Classification Metrics
-
-| Metric     | Value   |
-|------------|---------|
-| Accuracy   | 0.8030 |
-| Precision for 1  | 0.4213 |
-| Recall for 1     | 0.8300 |
-| F1-Score for 1   | 0.5589 |
-| Profit           | 316.1900 |
-
-### Confusion Matrix
-
-|   | Predicted 0 | Predicted 1 |
-|---|--------------|--------------|
-| Actual 0 | 451 | 114 |
-| Actual 1 | 17 | 83 |
 
